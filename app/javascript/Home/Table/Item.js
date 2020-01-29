@@ -18,7 +18,11 @@ const Button = styled.a`
          `
 
 
-const Item = ({title, desc}) => {
+const Item = ({id, title, desc, handlerVideoChange}) => {
+
+    const handleClickEvent = (event)=> {
+        handlerVideoChange(id, event);
+    }
     return(
         <div className="row">
         <div className="col-md-10 offset-md-1">
@@ -33,7 +37,7 @@ const Item = ({title, desc}) => {
                             <h4>{title}</h4>
                             <p>{desc}</p>
                             <div className="cta-wrapper">
-                            <Button className="btn cta-btn">Watch this Video</Button>
+                            <Button className="btn cta-btn" onClick={handleClickEvent}>Watch this Video</Button>
                             </div>
                         </div>
                     </div>
