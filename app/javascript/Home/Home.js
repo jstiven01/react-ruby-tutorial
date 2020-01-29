@@ -1,4 +1,5 @@
 import React from 'react';
+import Jumbotron from './Jumbotron'
 
 class Home extends React.Component {
   constructor() {
@@ -23,7 +24,9 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className="container">This is a home Component</div>
+      <div>
+          <Jumbotron />
+      </div>
     );
   }
 }
