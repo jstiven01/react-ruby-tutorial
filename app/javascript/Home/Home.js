@@ -1,39 +1,41 @@
 import React from 'react';
 import Jumbotron from './Jumbotron';
 import Table from './Table/Table';
+import axios from 'axios';
 
 class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      course_modules: [
-        {
-          id: 0, title: 'course 1 Setting up', description: 'lorem', active: false,
-        },
-        {
-          id: 1, title: 'course 2 Adding React', description: 'lorem', active: false,
-        },
-        {
-          id: 2, title: 'course 3 HelloWorld', description: 'lorem', active: false,
-        },
-        {
-          id: 3, title: 'course 4 React Router DOM', description: 'lorem', active: false,
-        },
-        {
-          id: 4, title: 'course 5 Active Item Course', description: 'lorem', active: false,
-        },
-      ],
+      course_modules: [],
     };
+  }
+  componentDidMount(){
+      axios.get('/episodes.json')
+      .then(response => {
+          let result = []
+          response.data.data.map(data => {
+              result.push({id:data.id, title: data.title, description: data.description, active: false });
+              this.setState({course_modules: result})
+          })
+      })
+      .catch(data =>{
+          console.log('Error: ', data)
+      });
   }
 
   handleVideoChange(item,event) {
       event.preventDefault();
       const {course_modules} = this.state;
       const newCourseModules = [...course_modules];
-      newCourseModules.map(course => {
+      let indexItem = 0;
+      newCourseModules.map((course, index) => {
           course.active = false
+          if(course.id === item){
+              indexItem = index;
+          }
       });
-      newCourseModules[item].active = !newCourseModules[item].active;
+      newCourseModules[indexItem].active = !newCourseModules[indexItem].active;
       this.setState({course_modules: newCourseModules});
   }
 
