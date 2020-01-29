@@ -24,10 +24,11 @@ class Home extends React.Component {
   }
 
   render() {
+      const {course_modules} = this.state;
     return (
       <div>
           <Jumbotron />
-          <Table />
+          <Table courseModules={course_modules} />
       </div>
     );
   }
